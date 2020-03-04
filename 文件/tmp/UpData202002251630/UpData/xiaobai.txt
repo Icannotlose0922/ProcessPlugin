@@ -1,0 +1,3 @@
+xbbrowser.exe
+xbProtect.exe
+xbservice.exe

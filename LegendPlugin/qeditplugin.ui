@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QEditPlugin</class>
+ <widget class="QWidget" name="QEditPlugin">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>727</width>
+    <height>315</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QGroupBox" name="groupbox_list">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>0</y>
+     <width>361</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>参数</string>
+   </property>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>282</width>
+      <height>277</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="lab_name">
+       <property name="text">
+        <string>项目名称：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="3">
+      <widget class="QLineEdit" name="txt_name"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lab_config_path">
+       <property name="text">
+        <string>配置路径：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QLineEdit" name="txt_config_path"/>
+     </item>
+     <item row="1" column="3">
+      <widget class="QPushButton" name="btn_browse">
+       <property name="text">
+        <string>浏览</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lab_ftp">
+       <property name="text">
+        <string>FTP地址：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" colspan="3">
+      <widget class="QLineEdit" name="txt_ftp"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="lab_username">
+       <property name="text">
+        <string>用户名：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" colspan="3">
+      <widget class="QLineEdit" name="txt_username"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="lab_password">
+       <property name="text">
+        <string>密码：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="3">
+      <widget class="QLineEdit" name="txt_password"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="lab_relative_path">
+       <property name="text">
+        <string>相对路径</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="3">
+      <widget class="QLineEdit" name="txt_relative_path"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="lab_address">
+       <property name="text">
+        <string>访问地址：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1" colspan="3">
+      <widget class="QLineEdit" name="txt_address"/>
+     </item>
+     <item row="7" column="0" colspan="2">
+      <widget class="QCheckBox" name="check_ie_synchronize">
+       <property name="text">
+        <string>开启网站同步</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2" colspan="2">
+      <widget class="QCheckBox" name="checkbox_temp_file">
+       <property name="text">
+        <string>生成临时文件</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_3">
+       <property name="text">
+        <string>非法进程警告</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="2" colspan="2">
+      <widget class="QCheckBox" name="checkbox_illegal_pages">
+       <property name="text">
+        <string>关闭非法网页</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="lab_waining_link">
+       <property name="text">
+        <string>警告链接</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1" colspan="3">
+      <widget class="QLineEdit" name="txt_waining_link"/>
+     </item>
+     <item row="10" column="0">
+      <widget class="QLabel" name="lab_intercept_count">
+       <property name="text">
+        <string>拦截次数</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1" colspan="3">
+      <widget class="QLineEdit" name="txt_intercept_count"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>0</y>
+     <width>361</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>列表</string>
+   </property>
+   <widget class="QTableWidget" name="m_table">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>361</width>
+      <height>271</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>290</y>
+     <width>251</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="btn_save">
+      <property name="text">
+       <string>保存</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn_add">
+      <property name="text">
+       <string>添加</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn_del">
+      <property name="text">
+       <string>删除</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
