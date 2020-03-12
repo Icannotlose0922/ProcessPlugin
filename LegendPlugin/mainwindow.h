@@ -6,6 +6,7 @@
 #include<QStackedWidget>
 #include <QVBoxLayout>
 #include <QLabel>
+#include<QAction>
 #include"content.h"
 namespace Ui {
 class MainWindow;
@@ -18,7 +19,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+public:
+	QAction *openStack[3];
 private:
     Ui::MainWindow *ui;
     Content *content;
@@ -27,7 +29,7 @@ private:
     void createToolBar();
 private:
     QToolBar *stackTool;                                //工具栏
-    QAction *openStack[3];
+   
 private slots:
     void openBaseInfo();                                //点击状态栏的槽函数
     void openContact();

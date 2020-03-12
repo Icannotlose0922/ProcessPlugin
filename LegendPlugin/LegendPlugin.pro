@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     easylogging++.cc \
     qeditplugin.cpp \
     qurlinfo.cpp \
-    qxml.cpp
+    qxml.cpp\
+    aes.cpp
 
 HEADERS  += mainwindow.h \
     DesCrypt.h \
@@ -42,8 +43,8 @@ HEADERS  += mainwindow.h \
     qeditplugin.h \
     gloabl.h \
     qurlinfo.h \
-    qxml.h
-
+    qxml.h\
+    aes.h
 FORMS    += mainwindow.ui \
     qspy.ui \
     qplugin.ui \

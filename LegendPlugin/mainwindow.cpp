@@ -23,6 +23,7 @@ MainWindow::~MainWindow()
 void MainWindow::createAction()
 {
     //转到第一个界面
+	
     openStack[0] = new QAction(tr("基本信息"), this);
     openStack[0]->setShortcut(tr("Ctrl+Q"));
     openStack[0]->setStatusTip(tr("界面1"));

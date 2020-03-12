@@ -20,6 +20,7 @@
 #include<QSettings>
 #include"gloabl.h"
 #include "qxml.h"
+#include "aes.h"
 namespace Ui {
 class QAddPlugin;
 }
@@ -47,12 +48,16 @@ private:
     QString log;
     QXml  xml;
     DesCrypt *des;
+	config_plugin cp;
+	QString tmpMainFile;
 private:
     bool  InitFTP();
     void saveToIni();
     void loadFmIni();
     void InsertLong(bool isOk,QString log);
     void DecryptionFile();
+	plugin_process &SplitWhiteList(QString data);
+	plugin_process & SplitBlackList(QString data);
 };
 
 #endif // QADDPLUGIN_H
