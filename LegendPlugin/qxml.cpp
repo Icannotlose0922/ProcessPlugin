@@ -9,11 +9,16 @@ void QXml::WriteXml(CONFIG_PLUGIN & cp)
 	{
 		return;
 	}
+    QXmlStreamWriter writer(&file);
+    writer.setAutoFormatting(true); // 自动格式化
+    writer.writeStartDocument();  // 开始文档（XML 声明）
+
+    writer.writeEndDocument();  // 结束文档
 	QDomDocument doc;
-	QDomProcessingInstruction instruction;
-	instruction = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
-	doc.appendChild(instruction);
-	QDomElement root = doc.createElement("root");
+    QDomProcessingInstruction instruction;
+    instruction = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+    doc.appendChild(instruction);
+    QDomElement root = doc.createElement("root");
 	doc.appendChild(root);
 
 	QDomElement project = doc.createElement("project");
@@ -42,16 +47,82 @@ void QXml::WriteXml(CONFIG_PLUGIN & cp)
 	mainfile.appendChild(mainfile_text);
 	project.appendChild(mainfile);
 
-	QDomElement plugn = doc.createElement("plugn");
- 
-	project.appendChild(plugn);
+    QDomElement plugin = doc.createElement( "plugin" );
+    QDomElement ie = doc.createElement( "ie_plugin" );
+
+      QDomElement iefeature = doc.createElement( "featurelist" );
+      QDomAttr fname = doc.createAttribute( "name" );
+      fname.setValue("111.txt");
+      iefeature.setAttributeNode(fname);
+      ie.appendChild(iefeature);
+
+      QDomElement iewhite = doc.createElement( "whitelist" );
+      QDomAttr wname = doc.createAttribute( "name" );
+      wname.setValue("在.txt");
+      iewhite.setAttributeNode(wname);
+      ie.appendChild(iewhite);
+
+      QDomElement ieblack = doc.createElement( "blacklist" );
+      QDomAttr bname = doc.createAttribute( "name" );
+      bname.setValue("333.txt");
+      ieblack.setAttributeNode(bname);
+      ie.appendChild(ieblack);
+       plugin.appendChild(ie);
+    QDomElement process = doc.createElement( "process_plugin" );
+
+     QDomElement processfeature = doc.createElement( "feature" );
+     QDomAttr pname = doc.createAttribute( "name" );
+     pname.setValue("444.txt");
+     processfeature.setAttributeNode(pname);
+     process.appendChild(processfeature);
+
+     QDomElement processblack = doc.createElement( "black" );
+     QDomElement blacklist = doc.createElement( "blacklist" );
+     QDomAttr bid = doc.createAttribute( "id" );
+     bid.setValue("0");
+     blacklist.setAttributeNode(bid);
+
+
+     QDomElement btitle = doc.createElement( "title") ;
+      QDomText   titletext = doc.createTextNode("mingdan1.txt");
+      btitle.appendChild(titletext);
+       blacklist.appendChild(btitle);
+
+     QDomElement bnum = doc.createElement( "num") ;
+     QDomText   numtext = doc.createTextNode("5");
+     bnum.appendChild(numtext);
+      blacklist.appendChild(bnum);
+
+      QDomElement link = doc.createElement( "links") ;
+       QDomElement blink1 = doc.createElement( "link") ;
+        QDomText   linktext1 = doc.createTextNode("http://www.baidu.com");
+        blink1.appendChild(linktext1);
+        link.appendChild(blink1);
+        QDomElement blink2 = doc.createElement( "link") ;
+         QDomText   linktext2 = doc.createTextNode("http://www.sina.com");
+         blink2.appendChild(linktext2);
+         link.appendChild(blink2);
+        blacklist.appendChild(link);
+         processblack.appendChild(blacklist);
+     QDomElement processwhite = doc.createElement( "white" );
+
+
+
+      process.appendChild(processblack);
+       process.appendChild(processwhite);
+    plugin.appendChild(process);
+    project.appendChild(plugin);
 	root.appendChild(project);
-	QTextStream out_stream(&file);
-	doc.save(out_stream, 4); //缩进4格
-	QTextStream out(&file);
-	QString xml = doc.toString();
-	out << xml;
-	file.close();
+    //QTextStream out_stream(&file);
+    //doc.save(out_stream, 4); //缩进4格
+    //QTextStream out(&file);
+   // QString xml = doc.toString();
+    //out << xml;
+   // file.close();
+    QTextStream out_stream(&file);
+    doc.save(out_stream,4); //缩进4格
+    file.close();
+
 
 }
 
