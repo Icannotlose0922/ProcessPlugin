@@ -20,7 +20,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 public:
-	QAction *openStack[3];
+    QAction *openStack[4];
 private:
     Ui::MainWindow *ui;
     Content *content;
@@ -34,6 +34,7 @@ private slots:
     void openBaseInfo();                                //点击状态栏的槽函数
     void openContact();
     void openDtail();
+    void openLog();
 };
 
 #endif // MAINWINDOW_H

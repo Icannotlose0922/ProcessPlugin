@@ -8,10 +8,13 @@ Content::Content(QWidget *parent) : QFrame(parent)
     guide = new QGuide();
     spy = new QSpy();
     plugin = new QPlugin();
+    log=new QLog();
     stack->addWidget(guide);
     stack->addWidget(spy);
     stack->addWidget(plugin);
+    stack->addWidget(log);
     mainLayout = new QGridLayout(this);
     mainLayout->setMargin(2);
     mainLayout->addWidget(stack, 0, 0);
 }
+

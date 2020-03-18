@@ -19,7 +19,7 @@ typedef struct blacklist
 	QString filename;
 	QString num;
 	QStringList link;
-};
+}BLACKLIST;
 typedef struct plugin_process
 {
 	QString process_feature;//特征
@@ -56,7 +56,7 @@ typedef struct config_plugin
 class QXml
 {
  public:
-    void WriteXml(CONFIG_PLUGIN &cp);
+    static void WriteXml(CONFIG_PLUGIN &cp);
     void ReadXml(CONFIG_PLUGIN &cp);
     void AddXml(CONFIG_PLUGIN &cp);
    void RemoveXml(CONFIG_PLUGIN &cp);

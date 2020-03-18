@@ -12,6 +12,7 @@
 #include"qguide.h"
 #include"qspy.h"
 #include "qplugin.h"
+#include "qlog.h"
 class Content : public QFrame
 {
     Q_OBJECT
@@ -21,6 +22,7 @@ public:
     QGuide *guide;
     QPlugin *plugin;
     QSpy *spy;
+    QLog  *log;
 signals:
 public slots:
 private:

@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     qeditplugin.cpp \
     qurlinfo.cpp \
     qxml.cpp\
-    aes.cpp
+    aes.cpp \
+    qlog.cpp
 
 HEADERS  += mainwindow.h \
     DesCrypt.h \
@@ -44,10 +45,21 @@ HEADERS  += mainwindow.h \
     gloabl.h \
     qurlinfo.h \
     qxml.h\
-    aes.h
+    aes.h \
+    qlog.h
 FORMS    += mainwindow.ui \
     qspy.ui \
     qplugin.ui \
     qguide.ui \
     qaddplugin.ui \
-    qeditplugin.ui
+    qeditplugin.ui \
+    qlog.ui
+
+
+unix|win32: LIBS += -L$$PWD/ThreadWeaver/lib/ -lthreadweaver
+
+INCLUDEPATH += $$PWD/ThreadWeaver
+DEPENDPATH += $$PWD/ThreadWeaver
+
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/ThreadWeaver/lib/threadweaver.lib
+else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/ThreadWeaver/lib/libthreadweaver.a

@@ -46,7 +46,7 @@ private:
     QString down_ftp_path;
     QString path;
     QString log;
-    QXml  xml;
+    QXml xml;
     DesCrypt *des;
 	config_plugin cp;
 	QString tmpMainFile;
@@ -56,8 +56,10 @@ private:
     void loadFmIni();
     void InsertLong(bool isOk,QString log);
     void DecryptionFile();
-	plugin_process &SplitWhiteList(QString data);
-	plugin_process & SplitBlackList(QString data);
+    void SplitWhiteList(QString data,plugin_process &pp);
+    void SplitBlackList(QString data,plugin_process &pp);
+signals:
+  void LogInfo(const QString& text);
 };
 
 #endif // QADDPLUGIN_H

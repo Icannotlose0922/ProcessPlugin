@@ -21,7 +21,7 @@ QGuide::QGuide(QWidget *parent) :
     InitFtpList();
     connect(m_btnAdd,SIGNAL(clicked()),this,SLOT(slot_AddPlugin()));
     connect(m_btnSave,SIGNAL(clicked()),this,SLOT(slot_SavePlugin()));
-    connect(m_btnDel,SIGNAL(clicked()),this,SLOT(slot_EditPlugin()));
+    connect(m_btnDel,SIGNAL(clicked()),this,SLOT(slot_DelPlugin()));
     connect(m_list,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(slot_doubleTableItemRC(QTableWidgetItem*)));
 
 }

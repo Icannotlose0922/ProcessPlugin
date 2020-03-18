@@ -38,6 +38,11 @@ void MainWindow::createAction()
     openStack[2]->setShortcut(tr("Ctrl+E"));
     openStack[2]->setStatusTip(tr("界面3"));
     connect(openStack[2], SIGNAL(triggered(bool)), this, SLOT(openDtail()));
+
+    openStack[3] = new QAction(tr("日志"), this);
+    openStack[3]->setShortcut(tr("Ctrl+L"));
+    openStack[3]->setStatusTip(tr("界面4"));
+    connect(openStack[3], SIGNAL(triggered(bool)), this, SLOT(openLog()));
 }
 //创建工具栏
 void MainWindow::createToolBar()
@@ -46,6 +51,7 @@ void MainWindow::createToolBar()
     stackTool->addAction(openStack[0]);
     stackTool->addAction(openStack[1]);
     stackTool->addAction(openStack[2]);
+     stackTool->addAction(openStack[3]);
 }
 //转到界面1槽函数
 void MainWindow::openBaseInfo()
@@ -61,4 +67,10 @@ void MainWindow::openContact()
 void MainWindow::openDtail()
 {
     this->content->stack->setCurrentIndex(2);
+}
+
+//转到界面4槽函数
+void MainWindow::openLog()
+{
+     this->content->stack->setCurrentIndex(3);
 }

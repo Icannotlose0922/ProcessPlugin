@@ -7,9 +7,11 @@ void QXml::WriteXml(CONFIG_PLUGIN & cp)
     QFile file(filename); //相对路径、绝对路径、资源路径都可以
 	if (!file.open(QFile::WriteOnly|QFile::Truncate))
 	{
+       LOG(INFO)<<filename.toStdString().c_str()<<" file not open.";
 		return;
 	}
-    QXmlStreamWriter writer(&file);
+
+  QXmlStreamWriter writer(&file);
     writer.setAutoFormatting(true); // 自动格式化
     writer.writeStartDocument();  // 开始文档（XML 声明）
 
@@ -52,19 +54,19 @@ void QXml::WriteXml(CONFIG_PLUGIN & cp)
 
       QDomElement iefeature = doc.createElement( "featurelist" );
       QDomAttr fname = doc.createAttribute( "name" );
-      fname.setValue("111.txt");
+      fname.setValue(cp.pinfo.pi.ie_feature);
       iefeature.setAttributeNode(fname);
       ie.appendChild(iefeature);
 
       QDomElement iewhite = doc.createElement( "whitelist" );
       QDomAttr wname = doc.createAttribute( "name" );
-      wname.setValue("在.txt");
+      wname.setValue(cp.pinfo.pi.ie_whitelist);
       iewhite.setAttributeNode(wname);
       ie.appendChild(iewhite);
 
       QDomElement ieblack = doc.createElement( "blacklist" );
       QDomAttr bname = doc.createAttribute( "name" );
-      bname.setValue("333.txt");
+      bname.setValue(cp.pinfo.pi.ie_blacklist);
       ieblack.setAttributeNode(bname);
       ie.appendChild(ieblack);
        plugin.appendChild(ie);
@@ -72,53 +74,59 @@ void QXml::WriteXml(CONFIG_PLUGIN & cp)
 
      QDomElement processfeature = doc.createElement( "feature" );
      QDomAttr pname = doc.createAttribute( "name" );
-     pname.setValue("444.txt");
+     pname.setValue(cp.pinfo.pp.process_feature);
      processfeature.setAttributeNode(pname);
      process.appendChild(processfeature);
 
-     QDomElement processblack = doc.createElement( "black" );
-     QDomElement blacklist = doc.createElement( "blacklist" );
-     QDomAttr bid = doc.createAttribute( "id" );
-     bid.setValue("0");
-     blacklist.setAttributeNode(bid);
+      QDomElement processblack = doc.createElement( "black" );
+     for(auto it=cp.pinfo.pp.process_blacklist.begin();it!=cp.pinfo.pp.process_blacklist.end();++it)
+     {
+         int ind=std::distance(cp.pinfo.pp.process_blacklist.begin(),it);
+           QDomElement blacklist = doc.createElement( "blacklist" );
+            QDomAttr bid = doc.createAttribute( "id" );
+            bid.setValue(QString::number (ind, 10));
+            blacklist.setAttributeNode(bid);  //blacklist id
 
+            QDomElement btitle = doc.createElement( "title") ;
+             QDomText   titletext = doc.createTextNode(it->filename);
+             btitle.appendChild(titletext);
+             blacklist.appendChild(btitle);
 
-     QDomElement btitle = doc.createElement( "title") ;
-      QDomText   titletext = doc.createTextNode("mingdan1.txt");
-      btitle.appendChild(titletext);
-       blacklist.appendChild(btitle);
+             QDomElement bnum = doc.createElement( "num") ;
+             QDomText   numtext = doc.createTextNode(it->num);
+             bnum.appendChild(numtext);
+              blacklist.appendChild(bnum);
+             QDomElement link = doc.createElement( "links") ;
+              for(auto ie=it->link.begin();ie!=it->link.end();++ie)
+              {
+                  QDomElement blink = doc.createElement( "link") ;
+                   QDomText   linktext = doc.createTextNode(*ie);
+                   blink.appendChild(linktext);
+                   link.appendChild(blink);
+                     link.appendChild(blink);
+              }
+              blacklist.appendChild(link);
+              processblack.appendChild(blacklist);
+     }
 
-     QDomElement bnum = doc.createElement( "num") ;
-     QDomText   numtext = doc.createTextNode("5");
-     bnum.appendChild(numtext);
-      blacklist.appendChild(bnum);
-
-      QDomElement link = doc.createElement( "links") ;
-       QDomElement blink1 = doc.createElement( "link") ;
-        QDomText   linktext1 = doc.createTextNode("http://www.baidu.com");
-        blink1.appendChild(linktext1);
-        link.appendChild(blink1);
-        QDomElement blink2 = doc.createElement( "link") ;
-         QDomText   linktext2 = doc.createTextNode("http://www.sina.com");
-         blink2.appendChild(linktext2);
-         link.appendChild(blink2);
-        blacklist.appendChild(link);
-         processblack.appendChild(blacklist);
      QDomElement processwhite = doc.createElement( "white" );
 
+     QDomElement wtitles = doc.createElement( "titles") ;
+     for(auto it=cp.pinfo.pp.process_whitelist.begin();it!=cp.pinfo.pp.process_whitelist.end();++it)
+     {
+          QDomElement wtitle = doc.createElement( "title") ;
+            QDomText   wtitletext = doc.createTextNode(*it);
+               wtitle.appendChild(wtitletext);
+               wtitles.appendChild(wtitle);
+     }
 
-
+   processwhite.appendChild(wtitles);
       process.appendChild(processblack);
        process.appendChild(processwhite);
     plugin.appendChild(process);
     project.appendChild(plugin);
 	root.appendChild(project);
-    //QTextStream out_stream(&file);
-    //doc.save(out_stream, 4); //缩进4格
-    //QTextStream out(&file);
-   // QString xml = doc.toString();
-    //out << xml;
-   // file.close();
+
     QTextStream out_stream(&file);
     doc.save(out_stream,4); //缩进4格
     file.close();

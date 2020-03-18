@@ -11,7 +11,7 @@
 #define CONFIG_PROCESS_FEATURE "process_feature"
 #define CONFIG_PROCESS_WHITE "process_white"
 #define CONFIG_PROCESS_BLACK "process_black"
-
+#include"qlog.h"
 #include"qbase.h"
 #include"qftp.h"
 #include "easylogging++.h"
@@ -20,6 +20,7 @@
 #include<QDateTime>
 #include<QDir>
 #include<QFile>
-
+#include <threadweaver.h>
+ using namespace ThreadWeaver;
 #endif // GLOABL
 

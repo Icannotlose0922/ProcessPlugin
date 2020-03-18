@@ -7,7 +7,7 @@ QAddPlugin::QAddPlugin(QWidget *parent) :
 	ui(new Ui::QAddPlugin)
 {
 	ui->setupUi(this);
-	LOG(INFO) << __FILE__ << __FUNCTION__ << " QAddPlugin form is init";
+    LOG(INFO) << __FILE__ << __FUNCTION__ << " QAddPlugin form is init";
 	ui->progressBar->setValue(0);
 	connect(ui->btn_browse, SIGNAL(clicked()), this, SLOT(slot_SelectBrowseFile()));
 	connect(ui->btn_cancel, SIGNAL(clicked()), this, SLOT(slot_CancelDownProcject()));
@@ -34,7 +34,8 @@ bool QAddPlugin::InitFTP()
 {
 	if (ui->txt_username->text().isEmpty())
 	{
-		LOG(ERROR) << "用户名不能为空";
+        LOG(ERROR) << "用户名不能为空";
+         emit LogInfo(" 用户名不能为空");
 		QMessageBox::critical(NULL, tr("Error"), "用户名不能为空");
 		return false;
 	}
@@ -116,9 +117,12 @@ void QAddPlugin::commandFinished(int, bool err)
 			file.flush();
 			file.close();
 			log = QString("%1 %2").arg(path.toStdString().c_str()).arg("文件下载成功");
-
+            auto s = new Sequence;
+            *s << make_job( [=]() {DecryptionFile();} )
+                <<make_job( [=]() {xml.WriteXml(cp);} );
+             stream() << s;
 			InsertLong(true, log);
-			DecryptionFile();
+
 		}
 		else
 		{
@@ -161,7 +165,7 @@ void QAddPlugin::slot_DownLoadProject()
 		cp.username = ui->txt_username->text().toStdString().c_str();
 		//cp.password=ui->txt_password->text().toStdString().c_str();  ftp://hx:123456@219.146.3.7/workplan.ini   ftp://219.146.3.7/workplan.ini
 		cp.mainfile = path;
-		xml.WriteXml(cp);
+
 
 	}
 }
@@ -264,11 +268,11 @@ void QAddPlugin::DecryptionFile()
 		}
 		else if (group.compare(CONFIG_PROCESS_WHITE) == 0)
 		{
-			cp.pinfo.pp = SplitWhiteList(value);
+            SplitWhiteList(value,cp.pinfo.pp);
 		}
 		else if (group.compare(CONFIG_PROCESS_BLACK) == 0)
 		{
-			cp.pinfo.pp = SplitBlackList(value);
+            SplitBlackList(value,cp.pinfo.pp);
 		}
 		setting.endGroup();
 	}
@@ -276,9 +280,9 @@ void QAddPlugin::DecryptionFile()
 
 }
 
-plugin_process& QAddPlugin::SplitWhiteList(QString data)//解析白名单字符串 
+void QAddPlugin::SplitWhiteList(QString data,plugin_process &pp)//解析白名单字符串
 { //ey: #mingdan1.txt#mingdan2.txt#mingdan3.txt#
-	plugin_process pp;
+
 	QStringList main = data.split("#");
 	for (QStringList::iterator it = main.begin(); it != main.end(); ++it)
 	{
@@ -289,16 +293,14 @@ plugin_process& QAddPlugin::SplitWhiteList(QString data)//解析白名单字符�
 		pp.process_whitelist << *it;
 		QString tmp = *it;
 		LOG(INFO) << tmp.toStdString().c_str();
-	}
-	return pp;
-
+	} 
 }
 
-plugin_process & QAddPlugin::SplitBlackList(QString data)//解析黑名单字符串 
+void  QAddPlugin::SplitBlackList(QString data,plugin_process &pp)//解析黑名单字符串
 {
 	//ey: #mingdan1.txt 5 *http://11.com*http://22.com*http://33.com*#mingdan2.txt 10 *http://11.com*http://22.com*http://33.com*#mingdan3.txt  5 *http://11.com*http://22.com*http://33.com*#
 #define BLACK_LIST_VALID_FIELD 3
-	plugin_process pp;
+
 	QStringList main = data.split("#");
 	for (QStringList::iterator it = main.begin(); it != main.end(); ++it)
 	{
@@ -333,5 +335,4 @@ plugin_process & QAddPlugin::SplitBlackList(QString data)//解析黑名单字符
 		}
 
 	}
-	return pp;
 }
