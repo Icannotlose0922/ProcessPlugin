@@ -1,0 +1,5 @@
+ifndef THUMBNAILER_PRI
+#define THUMBNAILER_PRI
+
+#endif // THUMBNAILER_PRI
+
