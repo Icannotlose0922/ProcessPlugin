@@ -58,6 +58,7 @@ private:
     void DecryptionFile();
     void SplitWhiteList(QString data,plugin_process &pp);
     void SplitBlackList(QString data,plugin_process &pp);
+    void DownLoadFile();
 signals:
   void LogInfo(const QString& text);
 };

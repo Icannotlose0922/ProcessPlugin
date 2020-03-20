@@ -7,10 +7,6 @@ QLog::QLog(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->btn_import, SIGNAL(clicked()), this, SLOT(slot_ImportLog()));
-   QRect rect= this->geometry();
-    rect.y()=rect.y()-100;
-    ui->listWidget->setGeometry(&rect);
-
 }
 
 QLog::~QLog()

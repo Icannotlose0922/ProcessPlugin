@@ -336,3 +336,88 @@ void  QAddPlugin::SplitBlackList(QString data,plugin_process &pp)//解析黑名�
 
 	}
 }
+
+void QAddPlugin::DownLoadFile()//下载cp中的所有文件
+{
+
+   if(!cp.pinfo.pi.ie_blacklist.isEmpty())
+   {
+       QString  ie_blacklist = QString("%1%2%3%4").arg(QDir::tempPath()).arg("/").arg(QBase::RandomString()).arg(ie_blacklist);
+        file.setFileName(ie_blacklist.toStdString().c_str());
+        LOG(INFO) << " Start downloading file:" <<ie_blacklist.toStdString().c_str();
+        if (!file.open(QIODevice::WriteOnly))
+        {
+            LOG(ERROR) << " file is open error or write error:" <<ie_blacklist.toStdString().c_str()<<" "<< file.errorString().toStdString().c_str();
+        }
+         ftp.get(cp.pinfo.pi.ie_blacklist, &file);
+   }
+
+   if(!cp.pinfo.pi.ie_feature.isEmpty())
+   {
+       QString  ie_feature = QString("%1%2%3%4").arg(QDir::tempPath()).arg("/").arg(QBase::RandomString()).arg(ie_blacklist);
+        file.setFileName(ie_feature.toStdString().c_str());
+        LOG(INFO) << " Start downloading file:" <<ie_feature.toStdString().c_str();
+        if (!file.open(QIODevice::WriteOnly))
+        {
+            LOG(ERROR) << " file is open error or write error:"  <<ie_feature.toStdString().c_str()<<" "<< file.errorString().toStdString().c_str();
+        }
+         ftp.get(cp.pinfo.pi.ie_feature, &file);
+   }
+
+   if(!cp.pinfo.pi.ie_whitelist.isEmpty())
+   {
+       QString  ie_whitelist = QString("%1%2%3%4").arg(QDir::tempPath()).arg("/").arg(QBase::RandomString()).arg(ie_whitelist);
+        file.setFileName(ie_whitelist.toStdString().c_str());
+        LOG(INFO) << " Start downloading file:" <<ie_whitelist.toStdString().c_str();
+        if (!file.open(QIODevice::WriteOnly))
+        {
+            LOG(ERROR) << " file is open error or write error:"<<ie_whitelist.toStdString().c_str()<<" "<<file.errorString().toStdString().c_str();
+        }
+         ftp.get(cp.pinfo.pi.ie_whitelist, &file);
+   }
+
+   if(!cp.pinfo.pp.process_feature.isEmpty())
+   {
+       QString  process_feature = QString("%1%2%3%4").arg(QDir::tempPath()).arg("/").arg(QBase::RandomString()).arg(process_feature);
+        file.setFileName(process_feature.toStdString().c_str());
+        LOG(INFO) << " Start downloading file:" <<process_feature.toStdString().c_str();
+        if (!file.open(QIODevice::WriteOnly))
+        {
+            LOG(ERROR) << " file is open error or write error:" <<process_feature.toStdString().c_str()<<" "<<file.errorString().toStdString().c_str();
+        }
+         ftp.get(cp.pinfo.pp.process_feature, &file);
+   }
+
+   if(cp.pinfo.pp.process_whitelist.size())
+   {
+       for(auto it=cp.pinfo.pp.process_whitelist.begin();it!=cp.pinfo.pp.process_whitelist.end();++it)
+       {
+           QString  process_whitelist = QString("%1%2%3%4").arg(QDir::tempPath()).arg("/").arg(QBase::RandomString()).arg(*it);
+            file.setFileName(process_whitelist.toStdString().c_str());
+            LOG(INFO) << " Start downloading file:" <<process_whitelist.toStdString().c_str();
+            if (!file.open(QIODevice::WriteOnly))
+            {
+                LOG(ERROR) << " file is open error or write error:" <<process_whitelist.toStdString().c_str()<<" "<<file.errorString().toStdString().c_str();
+            }
+             ftp.get(*it, &file);
+       }
+
+   }
+
+   if(cp.pinfo.pp.process_blacklist.size())
+   {
+       for(auto it=cp.pinfo.pp.process_blacklist.begin();it!=cp.pinfo.pp.process_blacklist.end();++it)
+       {
+           QString  process_black = QString("%1%2%3%4").arg(QDir::tempPath()).arg("/").arg(QBase::RandomString()).arg(it->filename);
+            file.setFileName(process_black.toStdString().c_str());
+            LOG(INFO) << " Start downloading file:" <<process_black.toStdString().c_str();
+            if (!file.open(QIODevice::WriteOnly))
+            {
+                LOG(ERROR) << " file is open error or write error:" <<process_black.toStdString().c_str()<<" "<<file.errorString().toStdString().c_str();
+            }
+             ftp.get(it->filename, &file);
+       }
+
+   }
+
+}
